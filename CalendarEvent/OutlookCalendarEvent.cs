@@ -20,14 +20,14 @@ namespace CalendarEvent
         {
             CalendarEventCsvFilePath = Path.GetFullPath($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/TestCalendarEventChart");
             CalendarEventFileName = "OutlookCalendarEvent.csv";
-            calendarEventDataAccess = new CalendarEventDataAccess(GetDatabaseConnectionString());
+            calendarEventDataAccess = new CalendarEventDataAccess();
             ReadCalendarEventFromCsvFile();
         }
         public OutlookCalendarEvent(string csvFilePath)
         {
             CalendarEventCsvFilePath = Path.GetFullPath(csvFilePath);
             CalendarEventFileName = "OutlookCalendarEvent.csv";
-            calendarEventDataAccess = new CalendarEventDataAccess(GetDatabaseConnectionString());
+            calendarEventDataAccess = new CalendarEventDataAccess();
             ReadCalendarEventFromCsvFile();
         }
 

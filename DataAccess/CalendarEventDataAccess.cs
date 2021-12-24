@@ -13,12 +13,7 @@ namespace DataAccess
 
         public CalendarEventDataAccess() 
         {
-            ConnectionString = ConfigurationManager.ConnectionStrings["calendarEventConnString"].ConnectionString;
-        }
-
-        public CalendarEventDataAccess(string connectionString) 
-        {
-            ConnectionString = connectionString;
+            ConnectionString = GetDatabaseConnectionString();
         }
 
         public List<Event> GetOutlookCalendarEvent()
@@ -36,6 +31,15 @@ namespace DataAccess
             {
                 connection.Execute("dbo.InsertOutlookCalendarEvent @Id, @Subject, @StartDateTime, @EndDateTime, @AllDayEvent, @Reminder, @ReminderDateTime, @MeetingOrganizer, @RequiredAttendees, @OptionalAttendees, @MeetingResources, @BillingInformation, @Categories, @Description, @Location, @Mileage, @Priority, @Private, @Sensitivity, @ShowTimeAs", calendarEvent);
             }
+        }
+
+        private string GetDatabaseConnectionString()
+        {
+            string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = (System.IO.Path.GetDirectoryName(executable));
+            string connectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={path}\Database\CalendarEventDb.mdf;Integrated Security=True;Connect Timeout=30";
+
+            return connectionString;
         }
     }
 }
